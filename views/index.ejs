@@ -13,7 +13,7 @@
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-100">
     <header class="bg-blue-600 text-white p-4">
         <section class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
@@ -46,13 +46,11 @@
                     <% launches.forEach(launch => { %>
                         <li class="flex">
                             <article
-                                class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md w-full"
-                                itemscope itemtype="http://schema.org/Event">
+                                class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md w-full">
                                 <figure class="mb-3 w-full">
                                     <% if (launch.image) { %>
                                         <img src="<%= launch.image %>" alt="<%= launch.name %> launch image"
-                                            class="w-full h-32 object-cover rounded-md"
-                                            itemprop="image">
+                                            class="w-full h-32 object-cover rounded-md">
                                     <% } else { %>
                                         <figure
                                             class="w-full h-32 bg-gray-200 flex items-center justify-center rounded-md text-gray-500 text-sm"
@@ -60,11 +58,11 @@
                                             No Image</figure>
                                     <% } %>
                                 </figure>
-                                <h3 class="text-lg font-medium mb-2" itemprop="name">
+                                <h3 class="text-lg font-medium mb-2">
                                     <%= launch.name %>
                                 </h3>
                                 <p class="text-sm text-gray-600 mb-4">
-                                    Date: <time datetime="<%= launch.net %>" itemprop="startDate"><%= new Date(launch.net).toLocaleDateString() %></time>
+                                    Date: <time datetime="<%= launch.net %>"><%= new Date(launch.net).toLocaleDateString() %></time>
                                 </p>
                                 <a href="/launch/<%= launch.id %>"
                                     class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Read

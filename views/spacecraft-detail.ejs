@@ -16,7 +16,7 @@
 
 <body class="flex flex-col min-h-screen bg-gray-100">
     <header class="bg-blue-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
+        <section class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
             <nav>
                 <ul class="flex space-x-6">
@@ -25,12 +25,12 @@
                     <li><a href="/astronauts" class="hover:underline">Astronauts</a></li>
                 </ul>
             </nav>
-        </div>
+        </section>
     </header>
 
-    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg" itemscope itemtype="http://schema.org/Vehicle">
+    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
         <% if (spacecraft) { %>
-            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6" itemprop="name">
+            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6">
                 <%= spacecraft.name %>
             </h2>
 
@@ -38,13 +38,12 @@
                 <figure class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
                     <% if (spacecraft.spacecraft_config && spacecraft.spacecraft_config.image_url) { %>
                         <img src="<%= spacecraft.spacecraft_config.image_url %>" alt="<%= spacecraft.name %>"
-                            class="w-full h-auto rounded-lg shadow-md object-cover max-h-96"
-                            itemprop="image">
+                            class="w-full h-auto rounded-lg shadow-md object-cover max-h-96">
                     <% } else { %>
-                        <div
+                        <figure
                             class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg shadow-md text-gray-500"
                             role="img" aria-label="No image available for <%= spacecraft.name %>">
-                            No Image Available</div>
+                            No Image Available</figure>
                     <% } %>
                 </figure>
 
@@ -52,27 +51,27 @@
                     <article class="mb-4 p-4 border border-gray-200 rounded-md bg-gray-50">
                         <h3 class="text-xl font-semibold text-gray-700 mb-2">Spacecraft Details</h3>
                         <p class="text-gray-700 mb-1"><strong>Serial Number:</strong>
-                            <span itemprop="vehicleIdentificationNumber"><%= spacecraft.serial_number || 'N/A' %></span>
+                            <%= spacecraft.serial_number || 'N/A' %>
                         </p>
                         <p class="text-gray-700 mb-1"><strong>Status:</strong>
-                            <span itemprop="itemCondition"><%= spacecraft.status ? spacecraft.status.name : 'N/A' %></span>
+                            <%= spacecraft.status ? spacecraft.status.name : 'N/A' %>
                         </p>
                         <% if (spacecraft.spacecraft_config) { %>
                             <p class="text-gray-700 mb-1"><strong>Configuration:</strong>
-                                <span itemprop="model"><%= spacecraft.spacecraft_config.name || 'N/A' %></span>
+                                <%= spacecraft.spacecraft_config.name || 'N/A' %>
                             </p>
                             <p class="text-gray-700 mb-1"><strong>Type:</strong>
-                                <span itemprop="vehicleType"><%= spacecraft.spacecraft_config.type ? spacecraft.spacecraft_config.type.name : 'N/A' %></span>
+                                <%= spacecraft.spacecraft_config.type ? spacecraft.spacecraft_config.type.name : 'N/A' %>
                             </p>
                             <p class="text-gray-700 mb-1"><strong>Agency:</strong>
-                                <span itemprop="manufacturer" itemscope itemtype="http://schema.org/Organization"><span itemprop="name"><%= spacecraft.spacecraft_config.agency ? spacecraft.spacecraft_config.agency.name : 'N/A' %></span></span>
+                                <%= spacecraft.spacecraft_config.agency ? spacecraft.spacecraft_config.agency.name : 'N/A' %>
                             </p>
                         <% } %>
                     </article>
 
                     <article class="p-4 border border-gray-200 rounded-md bg-gray-50">
                         <h3 class="text-xl font-semibold text-gray-700 mb-2">Description:</h3>
-                        <p class="text-gray-700" itemprop="description">
+                        <p class="text-gray-700">
                             <%= spacecraft.description || 'No description available.' %>
                         </p>
                     </article>

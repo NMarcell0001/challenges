@@ -14,7 +14,7 @@
 
 <body class="flex flex-col min-h-screen bg-gray-100">
     <header class="bg-blue-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
+        <section class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
             <nav>
                 <ul class="flex space-x-6">
@@ -23,17 +23,17 @@
                     <li><a href="/astronauts" class="hover:underline">Astronauts</a></li>
                 </ul>
             </nav>
-        </div>
+        </section>
     </header>
 
     <% if (error) { %>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto my-4 w-11/12 md:w-3/4 lg:w-1/2"
+        <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto my-4 w-11/12 md:w-3/4 lg:w-1/2"
             role="alert">
             <strong class="font-bold">Error!</strong>
-            <span class="block sm:inline ml-2">
+            <em class="block sm:inline ml-2">
                 <%= error %>
-            </span>
-        </div>
+            </em>
+        </p>
     <% } %>
 
     <main class="flex flex-grow container mx-auto my-4">
@@ -45,26 +45,24 @@
                     <% astronauts.forEach(astronaut => { %>
                         <li class="flex">
                             <article
-                                class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md w-full"
-                                itemscope itemtype="http://schema.org/Person">
+                                class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md w-full">
                                 <figure class="mb-3">
                                     <% if (astronaut.profile_image) { %>
                                         <img src="<%= astronaut.profile_image %>" alt="<%= astronaut.name %> profile image"
-                                            class="w-24 h-24 object-cover rounded-full border-2 border-blue-400"
-                                            itemprop="image">
+                                            class="w-24 h-24 object-cover rounded-full border-2 border-blue-400">
                                     <% } else { %>
-                                        <div
+                                        <figure
                                             class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-sm"
                                             role="img" aria-label="No image available for <%= astronaut.name %>">
-                                            No Image</div>
+                                            No Image</figure>
                                     <% } %>
                                 </figure>
-                                <h3 class="text-lg font-medium mb-2" itemprop="name">
+                                <h3 class="text-lg font-medium mb-2">
                                     <%= astronaut.name %>
                                 </h3>
-                                <p class="text-sm text-gray-600 mb-1"><strong>Age:</strong> <span itemprop="age"><%= astronaut.age %></span></p>
-                                <p class="text-sm text-gray-600 mb-4"><strong>Status:</strong> <span itemprop="additionalType"><%= astronaut.status ?
-                                        astronaut.status.name : 'N/A' %></span>
+                                <p class="text-sm text-gray-600 mb-1"><strong>Age:</strong> <%= astronaut.age %></p>
+                                <p class="text-sm text-gray-600 mb-4"><strong>Status:</strong> <%= astronaut.status ?
+                                        astronaut.status.name : 'N/A' %>
                                 </p>
                                 <a href="/astronauts/<%= astronaut.id %>"
                                     class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">View
