@@ -34,48 +34,54 @@
                 <%= error %>
             </span>
         </div>
-        <% } %>
+    <% } %>
 
-            <main class="flex flex-grow container mx-auto my-4">
-                <section class="w-full p-4">
-                    <h2 class="text-xl font-semibold mb-4">All Astronauts</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <% if (astronauts && astronauts.length> 0) { %>
-                            <% astronauts.forEach(astronaut=> { %>
-                                <article
-                                    class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md">
+    <main class="flex flex-grow container mx-auto my-4">
+        <section class="w-full p-4">
+            <h2 class="text-xl font-semibold mb-4">All Astronauts</h2>
+            
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <% if (astronauts && astronauts.length > 0) { %>
+                    <% astronauts.forEach(astronaut => { %>
+                        <li class="flex">
+                            <article
+                                class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md w-full"
+                                itemscope itemtype="http://schema.org/Person">
+                                <figure class="mb-3">
                                     <% if (astronaut.profile_image) { %>
-                                        <img src="<%= astronaut.profile_image %>" alt="<%= astronaut.name %>"
-                                            class="w-24 h-24 object-cover rounded-full mb-3 border-2 border-blue-400">
-                                        <% } else { %>
-                                            <div
-                                                class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-3 text-gray-500 text-sm">
-                                                No Image</div>
-                                            <% } %>
-                                                <h3 class="text-lg font-medium mb-2">
-                                                    <%= astronaut.name %>
-                                                </h3>
-                                                <p class="text-sm text-gray-600 mb-1">Age: <%= astronaut.age %>
-                                                </p>
-                                                <p class="text-sm text-gray-600 mb-4">Status: <%= astronaut.status ?
-                                                        astronaut.status.name : 'N/A' %>
-                                                </p>
-                                                <a href="/astronauts/<%= astronaut.id %>"
-                                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">View
-                                                    Details...</a>
-                                </article>
-                                <% }); %>
+                                        <img src="<%= astronaut.profile_image %>" alt="<%= astronaut.name %> profile image"
+                                            class="w-24 h-24 object-cover rounded-full border-2 border-blue-400"
+                                            itemprop="image">
                                     <% } else { %>
-                                        <p class="col-span-full text-center text-gray-500">No astronauts found or data
-                                            loading error.</p>
-                                        <% } %>
-                    </div>
-                </section>
-            </main>
+                                        <div
+                                            class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-sm"
+                                            role="img" aria-label="No image available for <%= astronaut.name %>">
+                                            No Image</div>
+                                    <% } %>
+                                </figure>
+                                <h3 class="text-lg font-medium mb-2" itemprop="name">
+                                    <%= astronaut.name %>
+                                </h3>
+                                <p class="text-sm text-gray-600 mb-1"><strong>Age:</strong> <span itemprop="age"><%= astronaut.age %></span></p>
+                                <p class="text-sm text-gray-600 mb-4"><strong>Status:</strong> <span itemprop="additionalType"><%= astronaut.status ?
+                                        astronaut.status.name : 'N/A' %></span>
+                                </p>
+                                <a href="/astronauts/<%= astronaut.id %>"
+                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">View
+                                    Details...</a>
+                            </article>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <li class="col-span-full text-center text-gray-500">No astronauts found or data loading error.</li>
+                <% } %>
+            </ul>
+        </section>
+    </main>
 
-            <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
-                <p>&copy; 2025 Marcell Nemes</p>
-            </footer>
+    <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+        <p>&copy; 2025 Marcell Nemes</p>
+    </footer>
 </body>
 
 </html>

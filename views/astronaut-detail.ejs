@@ -28,63 +28,56 @@
         </div>
     </header>
 
-    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
+    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg" itemscope itemtype="http://schema.org/Person">
         <% if (astronaut) { %>
-            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6">
+            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6" itemprop="name">
                 <%= astronaut.name %>
             </h2>
 
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0 text-center">
+            <section class="flex flex-wrap -mx-4">
+                <figure class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0 text-center">
                     <% if (astronaut.profile_image) { %>
                         <img src="<%= astronaut.profile_image %>" alt="<%= astronaut.name %>"
-                            class="w-64 h-64 mx-auto rounded-full object-cover shadow-lg">
+                            class="w-64 h-64 mx-auto rounded-full object-cover shadow-lg" itemprop="image">
                         <% } else { %>
                             <div
-                                class="w-64 h-64 mx-auto rounded-full bg-gray-200 flex items-center justify-center shadow-lg text-gray-500 text-lg">
+                                class="w-64 h-64 mx-auto rounded-full bg-gray-200 flex items-center justify-center shadow-lg text-gray-500 text-lg"
+                                role="img" aria-label="No image available for <%= astronaut.name %>">
                                 No Image Available</div>
                             <% } %>
-                </div>
+                </figure>
 
-                <div class="w-full lg:w-1/2 px-4">
-                    <div class="mb-4 p-4 border border-gray-200 rounded-md bg-gray-50">
+                <section class="w-full lg:w-1/2 px-4">
+                    <article class="mb-4 p-4 border border-gray-200 rounded-md bg-gray-50">
                         <h3 class="text-xl font-semibold text-gray-700 mb-2">Astronaut Details</h3>
-                        <p class="text-gray-700 mb-1"><strong>Age:</strong>
-                            <%= astronaut.age %>
-                        </p>
-                        <p class="text-gray-700 mb-1"><strong>Status:</strong>
-                            <%= astronaut.status ? astronaut.status.name : 'N/A' %>
-                        </p>
-                        <p class="text-gray-700 mb-1"><strong>Type:</strong>
-                            <%= astronaut.type ? astronaut.type.name : 'N/A' %>
-                        </p>
-                        <p class="text-gray-700 mb-1"><strong>Agency:</strong>
-                            <%= astronaut.agency ? astronaut.agency.name : 'N/A' %>
-                        </p>
-                    </div>
+                        <p class="text-gray-700 mb-1"><strong>Age:</strong> <span itemprop="age"><%= astronaut.age %></span></p>
+                        <p class="text-gray-700 mb-1"><strong>Status:</strong> <span itemprop="additionalType"><%= astronaut.status ? astronaut.status.name : 'N/A' %></span></p>
+                        <p class="text-gray-700 mb-1"><strong>Type:</strong> <span itemprop="jobTitle"><%= astronaut.type ? astronaut.type.name : 'N/A' %></span></p>
+                        <p class="text-gray-700 mb-1"><strong>Agency:</strong> <span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><span itemprop="name"><%= astronaut.agency ? astronaut.agency.name : 'N/A' %></span></span></p>
+                    </article>
 
-                    <div class="p-4 border border-gray-200 rounded-md bg-gray-50">
+                    <article class="p-4 border border-gray-200 rounded-md bg-gray-50">
                         <h3 class="text-xl font-semibold text-gray-700 mb-2">Biography:</h3>
-                        <p class="text-gray-700">
+                        <p class="text-gray-700" itemprop="description">
                             <%= astronaut.bio || 'No biography available.' %>
                         </p>
-                    </div>
-                </div>
-            </div>
+                    </article>
+                </section>
+            </section>
 
-            <div class="text-center mt-8">
+            <aside class="text-center mt-8">
                 <a href="/astronauts"
                     class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 shadow-lg">Back
                     to Astronauts</a>
-            </div>
+            </aside>
 
             <% } else { %>
-                <div class="text-center py-12">
+                <section class="text-center py-12">
                     <p class="text-xl text-gray-600">Astronaut details could not be loaded.</p>
                     <a href="/astronauts"
                         class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Back
                         to Astronauts</a>
-                </div>
+                </section>
                 <% } %>
     </main>
 
