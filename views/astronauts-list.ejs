@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Launch Library</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Astronauts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -13,7 +12,7 @@
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-100">
     <header class="bg-blue-600 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
@@ -38,45 +37,45 @@
         <% } %>
 
             <main class="flex flex-grow container mx-auto my-4">
-                <section id="list-view" class="w-full p-4">
-                    <h2 class="text-xl font-semibold mb-4">Upcoming Launches</h2>
+                <section class="w-full p-4">
+                    <h2 class="text-xl font-semibold mb-4">All Astronauts</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <% if (launches && launches.length> 0) { %>
-                            <% launches.forEach(launch=> { %>
+                        <% if (astronauts && astronauts.length> 0) { %>
+                            <% astronauts.forEach(astronaut=> { %>
                                 <article
                                     class="border border-blue-500 rounded-lg p-4 flex flex-col items-center justify-between text-center bg-white shadow-md">
-                                    <% if (launch.image) { %>
-                                        <img src="<%= launch.image %>" alt="<%= launch.name %>"
-                                            class="w-full h-32 object-cover rounded-md mb-3">
+                                    <% if (astronaut.profile_image) { %>
+                                        <img src="<%= astronaut.profile_image %>" alt="<%= astronaut.name %>"
+                                            class="w-24 h-24 object-cover rounded-full mb-3 border-2 border-blue-400">
                                         <% } else { %>
                                             <div
-                                                class="w-full h-32 bg-gray-200 flex items-center justify-center rounded-md mb-3 text-gray-500 text-sm">
+                                                class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-3 text-gray-500 text-sm">
                                                 No Image</div>
                                             <% } %>
                                                 <h3 class="text-lg font-medium mb-2">
-                                                    <%= launch.name %>
+                                                    <%= astronaut.name %>
                                                 </h3>
-                                                <p class="text-sm text-gray-600 mb-4">Date: <%= new
-                                                        Date(launch.net).toLocaleDateString() %>
+                                                <p class="text-sm text-gray-600 mb-1">Age: <%= astronaut.age %>
                                                 </p>
-                                                <a href="/launch/<%= launch.id %>"
-                                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Read
-                                                    More...</a>
+                                                <p class="text-sm text-gray-600 mb-4">Status: <%= astronaut.status ?
+                                                        astronaut.status.name : 'N/A' %>
+                                                </p>
+                                                <a href="/astronauts/<%= astronaut.id %>"
+                                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">View
+                                                    Details...</a>
                                 </article>
                                 <% }); %>
                                     <% } else { %>
-                                        <p class="col-span-full text-center text-gray-500">No launches found or data
+                                        <p class="col-span-full text-center text-gray-500">No astronauts found or data
                                             loading error.</p>
                                         <% } %>
                     </div>
                 </section>
-
             </main>
 
             <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
                 <p>&copy; 2025 Marcell Nemes</p>
             </footer>
-
 </body>
 
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= launch.name %> - Launch Details
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-100">
+    <header class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="/launches" class="hover:underline">Launches</a></li>
+                    <li><a href="/spacecrafts" class="hover:underline">Spacecrafts</a></li>
+                    <li><a href="/astronauts" class="hover:underline">Astronauts</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
+        <% if (launch) { %>
+            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6">
+                <%= launch.name %>
+            </h2>
+
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
+                    <% if (launch.image) { %>
+                        <img src="<%= launch.image %>" alt="<%= launch.name %>"
+                            class="w-full h-auto rounded-lg shadow-md object-cover max-h-96">
+                        <% } else { %>
+                            <div
+                                class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg shadow-md text-gray-500">
+                                No Image Available</div>
+                            <% } %>
+                </div>
+
+                <div class="w-full lg:w-1/2 px-4">
+                    <div class="mb-4 p-4 border border-gray-200 rounded-md bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Launch Details</h3>
+                        <p class="text-gray-700 mb-1"><strong>Date:</strong>
+                            <%= new Date(launch.net).toLocaleString() %>
+                        </p>
+                        <p class="text-gray-700 mb-1"><strong>Status:</strong>
+                            <%= launch.status.name %> (<%= launch.status.description %>)
+                        </p>
+                        <p class="text-gray-700 mb-1"><strong>Provider:</strong>
+                            <%= launch.launch_service_provider.name %>
+                        </p>
+                        <% if (launch.rocket && launch.rocket.configuration) { %>
+                            <p class="text-gray-700 mb-1"><strong>Rocket:</strong>
+                                <%= launch.rocket.configuration.full_name %>
+                            </p>
+                            <% } %>
+                                <% if (launch.pad && launch.pad.name && launch.pad.location) { %>
+                                    <p class="text-gray-700 mb-1"><strong>Launch Pad:</strong>
+                                        <%= launch.pad.name %>, <%= launch.pad.location.name %>
+                                    </p>
+                                    <% } %>
+                    </div>
+
+                    <% if (launch.mission) { %>
+                        <div class="p-4 border border-gray-200 rounded-md bg-gray-50">
+                            <h3 class="text-xl font-semibold text-gray-700 mb-2">Mission Overview</h3>
+                            <p class="text-gray-700 mb-2"><strong>Name:</strong>
+                                <%= launch.mission.name %>
+                            </p>
+                            <p class="text-gray-700 mb-2"><strong>Type:</strong>
+                                <%= launch.mission.type %>
+                            </p>
+                            <p class="text-gray-700 mb-2"><strong>Orbit:</strong>
+                                <%= launch.mission.orbit ? launch.mission.orbit.name : 'N/A' %>
+                            </p>
+                            <p class="text-gray-700"><strong>Description:</strong>
+                                <%= launch.mission.description %>
+                            </p>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="/launches"
+                    class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 shadow-lg">Back
+                    to Launches</a>
+            </div>
+
+            <% } else { %>
+                <div class="text-center py-12">
+                    <p class="text-xl text-gray-600">Launch details could not be loaded.</p>
+                    <a href="/launches"
+                        class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Back
+                        to Launches</a>
+                </div>
+                <% } %>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+        <p>&copy; 2025 Marcell Nemes</p>
+    </footer>
+</body>
+
+</html>

@@ -1,37 +1,47 @@
-// start.js setup from learnnode.com by Wes Bos
-import Express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import logger from 'morgan';
+import createError from 'http-errors';
 import * as Dotenv from 'dotenv';
+
 Dotenv.config({ path: '.env' });
 
-import IndexRouter from './routes/index.js';
-// import { errorHandler } from './middleware/errors/errorHandler.js';
+import launchRoutes from './routes/launchRoutes.js';
+import spacecraftRoutes from './routes/spacecraftRoutes.js'; // NEW
+import astronautRoutes from './routes/astronautRoutes.js';   // NEW
 
-const app: Application = Express();
-const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3010;
+const app: Application = express();
 
-// support json encoded and url-encoded bodies, mainly used for post and update
-// test
-app.use(Express.json());
-app.use(Express.urlencoded({ extended: true }));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Set up EJS
+app.set('views', path.join(__dirname, '..', '..', 'views'));
 app.set('view engine', 'ejs');
 
-// Serve static files from the 'public' base directory
-app.use(Express.static('public'));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use('/', IndexRouter);
+app.use('/', launchRoutes); // Handles '/', '/launches', '/launch/:id'
+app.use('/spacecrafts', spacecraftRoutes); // Handles '/spacecrafts' and '/spacecrafts/:id'
+app.use('/astronauts', astronautRoutes);   // Handles '/astronauts' and '/astronauts/:id'
 
-// Error handling
+
 app.use((req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.render('404');
-  } catch (err) {
-    next(err);
-  }
+    next(createError(404));
 });
-// app.use(errorHandler);
 
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`🍿 Express running → PORT ${port}`);
+    console.log(`Server is running on port ${port}`);
+    console.log(`You can view your app at: http://localhost:${port}`);
 });

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= spacecraft.name %> - Spacecraft Details
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-100">
+    <header class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold"><a href="/launches" class="hover:underline">Launch Library</a></h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="/launches" class="hover:underline">Launches</a></li>
+                    <li><a href="/spacecrafts" class="hover:underline">Spacecrafts</a></li>
+                    <li><a href="/astronauts" class="hover:underline">Astronauts</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
+        <% if (spacecraft) { %>
+            <h2 class="text-4xl font-bold text-center text-blue-800 mb-6">
+                <%= spacecraft.name %>
+            </h2>
+
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
+                    <% if (spacecraft.spacecraft_config && spacecraft.spacecraft_config.image_url) { %>
+                        <img src="<%= spacecraft.spacecraft_config.image_url %>" alt="<%= spacecraft.name %>"
+                            class="w-full h-auto rounded-lg shadow-md object-cover max-h-96">
+                        <% } else { %>
+                            <div
+                                class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg shadow-md text-gray-500">
+                                No Image Available</div>
+                            <% } %>
+                </div>
+
+                <div class="w-full lg:w-1/2 px-4">
+                    <div class="mb-4 p-4 border border-gray-200 rounded-md bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Spacecraft Details</h3>
+                        <p class="text-gray-700 mb-1"><strong>Serial Number:</strong>
+                            <%= spacecraft.serial_number || 'N/A' %>
+                        </p>
+                        <p class="text-gray-700 mb-1"><strong>Status:</strong>
+                            <%= spacecraft.status ? spacecraft.status.name : 'N/A' %>
+                        </p>
+                        <% if (spacecraft.spacecraft_config) { %>
+                            <p class="text-gray-700 mb-1"><strong>Configuration:</strong>
+                                <%= spacecraft.spacecraft_config.name || 'N/A' %>
+                            </p>
+                            <p class="text-gray-700 mb-1"><strong>Type:</strong>
+                                <%= spacecraft.spacecraft_config.type ? spacecraft.spacecraft_config.type.name : 'N/A'
+                                    %>
+                            </p>
+                            <p class="text-gray-700 mb-1"><strong>Agency:</strong>
+                                <%= spacecraft.spacecraft_config.agency ? spacecraft.spacecraft_config.agency.name
+                                    : 'N/A' %>
+                            </p>
+                            <% } %>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded-md bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Description:</h3>
+                        <p class="text-gray-700">
+                            <%= spacecraft.description || 'No description available.' %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="/spacecrafts"
+                    class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 shadow-lg">Back
+                    to Spacecrafts</a>
+            </div>
+
+            <% } else { %>
+                <div class="text-center py-12">
+                    <p class="text-xl text-gray-600">Spacecraft details could not be loaded.</p>
+                    <a href="/spacecrafts"
+                        class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Back
+                        to Spacecrafts</a>
+                </div>
+                <% } %>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+        <p>&copy; 2025 Marcell Nemes</p>
+    </footer>
+</body>
+
+</html>
