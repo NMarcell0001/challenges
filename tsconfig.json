@@ -11,7 +11,7 @@
         "outDir": "./build/",
         "noEmitOnError": true,
         "module": "NodeNext",
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "Bundler",
         // "allowImportingTsExtensions": true,
         // "emitDeclarationOnly": true,
         "declaration": true,
