@@ -14,7 +14,7 @@
     "dev": "concurrently \"npm:ts:watch\" \"npm:tailwind:watch\" \"npm:serve\"",
     "ts:watch": "tsc --watch",
     "tailwind:watch": "postcss public/css/tailwind.css -o public/css/style.css --watch",
-    "tailwind:build": "postcss public/css/tailwind.css -o public/css/style.css",
+    "tailwind:build": "npx postcss public/css/tailwind.css -o public/css/style.css",
     "serve": "node build/src/start.js",
     "start": "node build/src/start.js",
     "dev:ts": "nodemon --watch src/start.ts",
